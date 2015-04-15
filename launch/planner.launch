@@ -1,0 +1,3 @@
+<launch>
+  <node name="planner" pkg="lab1" type="planner.cpp" />
+</launch>

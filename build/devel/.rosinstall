@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/ryan/ros_catkin_ws_indigo/src/lab1/build/devel/setup.sh

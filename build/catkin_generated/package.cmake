@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "lab1")
+set(lab1_MAINTAINER "ryan <ryan@todo.todo>")
+set(lab1_DEPRECATED "")
+set(lab1_VERSION "0.0.0")
+set(lab1_BUILD_DEPENDS "roscpp" "rospy" "std_msgs")
+set(lab1_RUN_DEPENDS "roscpp" "rospy" "std_msgs")
+set(lab1_BUILDTOOL_DEPENDS "catkin")
