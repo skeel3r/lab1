@@ -1,3 +1,4 @@
 <launch>
-  <node name="planner" pkg="lab1" type="planner.cpp" />
+  <param name="stop_dist" type="double" value="1" />
+  <node name="my_planner" pkg="lab1" type="lab1_node" />
 </launch>

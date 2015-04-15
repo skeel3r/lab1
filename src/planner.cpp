@@ -9,9 +9,11 @@ using namespace ros;
 
 class Planner{
 	private:
+		NodeHandle my_planner;
 		Publisher pub;
 		Subscriber sub;
 		geometry_msgs::Twist command;
+		double stop_dist;
 		//callback function here
 		void sub_callback(const sensor_msgs::LaserScan::ConstPtr& scan);
 
@@ -22,7 +24,6 @@ class Planner{
 };
 
 Planner::Planner(){
-	NodeHandle my_planner;
 	pub = my_planner.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 10);
 	sub = my_planner.subscribe("/scan", 1000, &Planner::sub_callback, this);
 	command.linear.x = 0.1;
@@ -34,15 +35,17 @@ Planner::Planner(){
 }
 void Planner::sub_callback(const sensor_msgs::LaserScan::ConstPtr& scan){
 	double min_dist;
+	my_planner.getParam("stop_dist", stop_dist);
+	ROS_INFO("THIS IS THE STOP DISTANCE %f", stop_dist);
+
 	min_dist = 10000000000;
 	for(int i = 0; i < scan->ranges.size(); i++){
 		if(min_dist > scan->ranges[i]){
 			min_dist = scan->ranges[i];
-			ROS_INFO("I heard!!");
 		}
 	}
 
-	if(min_dist<1){
+	if(min_dist< stop_dist){
 		command.linear.x = 0;
 	}
 	else{
