@@ -33,8 +33,21 @@ Planner::Planner(){
 	command.angular.z = 0.0;
 }
 void Planner::sub_callback(const sensor_msgs::LaserScan::ConstPtr& scan){
-	ROS_INFO("I heard!!");
-	scan->
+	double min_dist;
+	min_dist = 10000000000;
+	for(int i = 0; i < scan->ranges.size(); i++){
+		if(min_dist > scan->ranges[i]){
+			min_dist = scan->ranges[i];
+			ROS_INFO("I heard!!");
+		}
+	}
+
+	if(min_dist<1){
+		command.linear.x = 0;
+	}
+	else{
+		command.linear.x = .1;
+	}
 	pub.publish(command);
 }
 
